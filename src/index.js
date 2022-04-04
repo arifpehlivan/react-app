@@ -11,7 +11,7 @@ class TodoApp extends React.Component{
         this.addItem=this.addItem.bind(this);
         this.deleteItem=this.deleteItem.bind(this);
         this.state={
-            items: ["Item 1"]
+            items: []
         }
     }
 
@@ -77,56 +77,43 @@ class TodoApp extends React.Component{
     }
 }
 
-class Header extends React.Component{
-    render(){
-        return (
+const Header=(props)=>{
+    return (
             <>
-                <h1>{this.props.title}</h1>
-                <div>{this.props.desc}</div>
+                <h1>{props.title}</h1>
+                <div>{props.desc}</div>
             </>
-        )
-    }
+    )       
 }
 
-class TodoList extends React.Component{
-    render(){
-        return (
-            <>
-               <ul>
+
+const TodoList=(props) => {
+    return (
+        <>
+            <ul>
                 {
-                    this.props.items.map((item,index)=>
-                        <TodoItem deleteItem={this.props.deleteItem} key={index} item={item}/>
+                    props.items.map((item,index)=>
+                        <TodoItem deleteItem={props.deleteItem} key={index} item={item}/>
                     )
                 }
-                </ul>
-                <p>
-                    <button onClick={this.props.clearItems}>Clear Items</button>
-                </p> 
-            </>
-            
-        )
-    }
+            </ul>
+            <p>
+                <button onClick={props.clearItems}>Clear Items</button>
+            </p> 
+        </> 
+    )
 }
 
-class TodoItem extends React.Component{
-    constructor(props){
-        super(props);
-        this.deleteItem=this.deleteItem.bind(this)
-    }
-    deleteItem(){
-        this.props.deleteItem(this.props.item)
-        
-    }
-    render(){
-        return(
-            <>
-                <li>
-                    {this.props.item}
-                    <button onClick={this.deleteItem}>X</button>
-                </li>
-            </>
-        )
-    }
+const TodoItem = (props) => {
+    return(
+        <>
+            <li>
+                {props.item}
+                <button onClick={()=>{props.deleteItem(props.item)}}>X</button>
+            </li>
+        </>
+    )
+    
 }
 
 class Action extends React.Component{
@@ -162,3 +149,89 @@ class Action extends React.Component{
 
 
 root.render(<TodoApp/>);
+
+// class Header extends React.Component{
+//     render(){
+//         return (
+//             <>
+//                 <h1>{this.props.title}</h1>
+//                 <div>{this.props.desc}</div>
+//             </>
+//         )
+//     }
+// }
+
+// class TodoList extends React.Component{
+//     render(){
+//         return (
+//             <>
+//                <ul>
+//                 {
+//                     this.props.items.map((item,index)=>
+//                         <TodoItem deleteItem={this.props.deleteItem} key={index} item={item}/>
+//                     )
+//                 }
+//                 </ul>
+//                 <p>
+//                     <button onClick={this.props.clearItems}>Clear Items</button>
+//                 </p> 
+//             </>
+            
+//         )
+//     }
+// }
+
+// class TodoItem extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.deleteItem=this.deleteItem.bind(this)
+//     }
+//     deleteItem(){
+//         this.props.deleteItem(this.props.item)
+        
+//     }
+//     render(){
+//         return(
+//             <>
+//                 <li>
+//                     {this.props.item}
+//                     <button onClick={this.deleteItem}>X</button>
+//                 </li>
+//             </>
+//         )
+//     }
+// }
+
+// class Action extends React.Component{
+//     constructor(props){
+//         super(props);
+//         this.onFormSubmit=this.onFormSubmit.bind(this);
+//         this.state={
+//             err:""
+//         }
+//     }
+//     onFormSubmit(e){
+//         e.preventDefault();
+//         const item=e.target.txtItem.value.trim();
+//         const err=this.props.addItem(item);
+//         this.setState({
+//             err:err
+//         })
+//         e.target.txtItem.value="";
+//     }
+//     render() {
+//         return (
+//             <>
+//             {this.state.err && <p>{this.state.err}</p>}
+//              <form onSubmit={this.onFormSubmit}>
+//                  <input type="text" name="txtItem" />
+//                  <button type="submit">Add Item</button>
+//              </form>
+//             </>
+//         )
+//     }
+// }
+
+
+
+// root.render(<TodoApp/>);
