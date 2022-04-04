@@ -10,7 +10,7 @@ var app = {
     items: []
 }
 
-function onFormSubmit(event) {
+const onFormSubmit=(event)=> {
     event.preventDefault();
     var item = event.target.elements.txtItem.value;
     if (item) {
@@ -21,20 +21,20 @@ function onFormSubmit(event) {
     
 }
 
-function clearItems(){
+const clearItems=()=>{
     app.items=[];
     render();
 }
 
-function render(){
+const render=()=>{
     const template = (
         <div>
             <h1>{app.title}</h1>
             <div>{app.desc}</div>
             <ul>
                 {
-                    app.items.map((item) => (
-                        <li key={item}>{item}</li>
+                    app.items.map((item,index) => (
+                        <li key={index}>{item}</li>
                     ))
                 }
             </ul>
