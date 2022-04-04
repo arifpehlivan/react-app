@@ -6,31 +6,32 @@ const root = createRoot(container);
 
 
 class TodoApp extends React.Component{
+    constructor(props){
+        super(props);
+        this.clearItems=this.clearItems.bind(this);
+        this.state={
+            items: ["Item 1"]
+        }
+    }
+    clearItems(){
+        this.setState({
+            items:[]
+        })
+    }
     render(){
         const app = {
             title: "Todo App",
             desc: "Lorem",
-            items: ["Item 1"]
         }
         return(
             <>
                 <Header title={app.title} desc={app.desc}/>
-                <TodoList items={app.items}/>
+                <TodoList items={this.state.items} clearItems={this.clearItems}/>
                 <Action/>
             </>
         )
     }
 }
-
-// const Header = function(props){
-//     console.log(props);
-//     return(
-//         <>
-//             <h1>{props.title}</h1>
-//             <div>{props.desc}</div>
-//         </>
-//     )
-// }
 
 class Header extends React.Component{
     render(){
@@ -44,13 +45,6 @@ class Header extends React.Component{
 }
 
 class TodoList extends React.Component{
-    constructor(props){
-        super(props);
-        this.clearItems=this.clearItems.bind(this);
-    }
-    clearItems(){
-        console.log(this.props.items);
-    }
     render(){
         return (
             <>
@@ -62,7 +56,7 @@ class TodoList extends React.Component{
                 }
                 </ul>
                 <p>
-                    <button onClick={this.clearItems}>Clear Items</button>
+                    <button onClick={this.props.clearItems}>Clear Items</button>
                 </p> 
             </>
             
