@@ -67,11 +67,11 @@ export default class TodoApp extends React.Component{
             desc: "Lorem",
         }
         return(
-            <>
+            <div className="bg-primary">
                 <Header title={app.title} desc={app.desc}/>
                 <TodoList items={this.state.items} deleteItem={this.deleteItem} clearItems={this.clearItems}/>
                 <Action addItem={this.addItem}/>
-            </>
+            </div>
         )
     }
 }
