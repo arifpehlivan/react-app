@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 const container = document.getElementById('app');
 const root = createRoot(container);
 
-
 class TodoApp extends React.Component{
     constructor(props){
         super(props);
@@ -15,6 +14,19 @@ class TodoApp extends React.Component{
             items: ["Item 1"]
         }
     }
+
+    componentDidMount(){
+        console.log("Component created");
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        console.log("Component updated");
+    }
+
+    componentWillUnmount(){
+        console.log("Component deleted");
+    }
+
     deleteItem(item){
         this.setState((prevState)=>{
             const arr=prevState.items.filter((i)=>{
