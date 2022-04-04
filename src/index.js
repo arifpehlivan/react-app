@@ -9,6 +9,7 @@ class TodoApp extends React.Component{
     constructor(props){
         super(props);
         this.clearItems=this.clearItems.bind(this);
+        this.addItem=this.addItem.bind(this);
         this.state={
             items: ["Item 1"]
         }
@@ -16,6 +17,16 @@ class TodoApp extends React.Component{
     clearItems(){
         this.setState({
             items:[]
+        })
+    }
+    addItem(item){
+        if(!item){
+            return "Add item";
+        }else if(this.state.items.indexOf(item)>-1){
+            return "Cannot add the same element"
+        }
+        this.setState((prevState)=>{
+            return {items: prevState.items.concat(item)}
         })
     }
     render(){
@@ -27,7 +38,7 @@ class TodoApp extends React.Component{
             <>
                 <Header title={app.title} desc={app.desc}/>
                 <TodoList items={this.state.items} clearItems={this.clearItems}/>
-                <Action/>
+                <Action addItem={this.addItem}/>
             </>
         )
     }
@@ -75,16 +86,25 @@ class TodoItem extends React.Component{
 }
 
 class Action extends React.Component{
+    constructor(props){
+        super(props);
+        this.onFormSubmit=this.onFormSubmit.bind(this);
+        this.state={
+            err:""
+        }
+    }
     onFormSubmit(e){
         e.preventDefault();
         const item=e.target.txtItem.value.trim();
-        if(item){
-            console.log(item);
-        }
+        const err=this.props.addItem(item);
+        this.setState({
+            err:err
+        })
     }
     render() {
         return (
             <>
+            {this.state.err && <p>{this.state.err}</p>}
              <form onSubmit={this.onFormSubmit}>
                  <input type="text" name="txtItem" />
                  <button type="submit">Add Item</button>
