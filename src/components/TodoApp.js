@@ -67,10 +67,18 @@ export default class TodoApp extends React.Component{
             desc: "Lorem",
         }
         return(
-            <div className="bg-primary">
-                <Header title={app.title} desc={app.desc}/>
-                <TodoList items={this.state.items} deleteItem={this.deleteItem} clearItems={this.clearItems}/>
-                <Action addItem={this.addItem}/>
+            <div className="container my-5">
+                <div className="card">
+                    <div className="card-header">
+                        <Header title={app.title} desc={app.desc}/>
+                    </div>
+                    <div className="card-body">
+                        <TodoList items={this.state.items} deleteItem={this.deleteItem} clearItems={this.clearItems}/>
+                    </div>
+                    <div className="card-footer">
+                        <Action addItem={this.addItem}/>
+                    </div>
+                </div>
             </div>
         )
     }

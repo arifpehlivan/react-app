@@ -1,9 +1,9 @@
 const TodoItem = (props) => {
     return(
         <>
-            <li>
+            <li className="list-group-item">
                 {props.item}
-                <button onClick={()=>{props.deleteItem(props.item)}}>X</button>
+                <button className="btn btn-danger btn-sm float-end" onClick={()=>{props.deleteItem(props.item)}}>X</button>
             </li>
         </>
     )
