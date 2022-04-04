@@ -10,9 +10,20 @@ class TodoApp extends React.Component{
         super(props);
         this.clearItems=this.clearItems.bind(this);
         this.addItem=this.addItem.bind(this);
+        this.deleteItem=this.deleteItem.bind(this);
         this.state={
             items: ["Item 1"]
         }
+    }
+    deleteItem(item){
+        this.setState((prevState)=>{
+            const arr=prevState.items.filter((i)=>{
+                return item !==i
+            })
+            return {
+                items:arr
+            }
+        })
     }
     clearItems(){
         this.setState({
@@ -37,7 +48,7 @@ class TodoApp extends React.Component{
         return(
             <>
                 <Header title={app.title} desc={app.desc}/>
-                <TodoList items={this.state.items} clearItems={this.clearItems}/>
+                <TodoList items={this.state.items} deleteItem={this.deleteItem} clearItems={this.clearItems}/>
                 <Action addItem={this.addItem}/>
             </>
         )
@@ -62,7 +73,7 @@ class TodoList extends React.Component{
                <ul>
                 {
                     this.props.items.map((item,index)=>
-                        <TodoItem key={index} item={item}/>
+                        <TodoItem deleteItem={this.props.deleteItem} key={index} item={item}/>
                     )
                 }
                 </ul>
@@ -76,10 +87,21 @@ class TodoList extends React.Component{
 }
 
 class TodoItem extends React.Component{
+    constructor(props){
+        super(props);
+        this.deleteItem=this.deleteItem.bind(this)
+    }
+    deleteItem(){
+        this.props.deleteItem(this.props.item)
+        
+    }
     render(){
         return(
             <>
-                <li>{this.props.item}</li>
+                <li>
+                    {this.props.item}
+                    <button onClick={this.deleteItem}>X</button>
+                </li>
             </>
         )
     }
@@ -100,6 +122,7 @@ class Action extends React.Component{
         this.setState({
             err:err
         })
+        e.target.txtItem.value="";
     }
     render() {
         return (
